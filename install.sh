@@ -7,11 +7,14 @@
 #   … | sh -s -- --install-python
 #   … | sh -s -- --with-deps
 #
+# The one-liner may be served from the site. The payload is always GitHub
+# (override with SPP_ORIGIN).
+#
 # python3 is optional. Skills install without it. The statusline, wavemap,
 # and decision-log checker need it — we offer the common ways to get one.
 set -eu
 
-ORIGIN="${SPP_ORIGIN:-https://spp.datalos.dk}"
+ORIGIN="${SPP_ORIGIN:-https://raw.githubusercontent.com/mikl0s/spp/main}"
 PLUGIN=superpowers-plus
 WANT_PYTHON=0
 for arg in "$@"; do

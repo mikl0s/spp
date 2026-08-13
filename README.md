@@ -26,6 +26,8 @@ fetch -o - https://spp.datalos.dk/install.sh | sh   # FreeBSD
 # then:  … | sh -s -- --project
 ```
 
+The one-liner can live on the site. The files it installs come from this repo (`raw.githubusercontent.com/mikl0s/spp/main`). Override with `SPP_ORIGIN`.
+
 `--project` writes into the current repo (Claude `--scope project`, plus
 `.claude/skills` / `.grok/skills` here). Default is global, for this user.
 
@@ -91,13 +93,13 @@ NO_COLOR=1 python3 skills/superpowers-plus/wavemap.py # no colour
 
 ```mermaid
 flowchart LR
-    PLAN["<b>PLAN</b><br/>pre-flight against<br/>self-contradiction"]
-    G["<b>dependency graph</b><br/>Creates · Modifies · Consumes"]
-    W["<b>waves</b><br/>derived, never declared"]
-    A["<b>agents</b><br/>one per task, disjoint files"]
-    R{"plausible<br/>wrong answer?"}
-    D["<b>decision log</b><br/>controller writes<br/>between waves"]
-    OP["<b>operator</b><br/>rules in batch,<br/>later"]
+    PLAN["PLAN<br>pre-flight against<br>self-contradiction"]
+    G["dependency graph<br>Creates · Modifies · Consumes"]
+    W["waves<br>derived, never declared"]
+    A["agents<br>one per task, disjoint files"]
+    R{"plausible<br>wrong answer?"}
+    D["decision log<br>controller writes<br>between waves"]
+    OP["operator<br>rules in batch, later"]
 
     PLAN --> G --> W --> A
     A -->|"result"| R

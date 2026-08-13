@@ -6,6 +6,7 @@ symlinks those tools already scan.
 
   curl -fsSL https://spp.datalos.dk/install.sh | sh
   curl -fsSL https://spp.datalos.dk/install.sh | sh -s -- --project
+  # payload is fetched from GitHub unless SPP_ORIGIN is set
 
   ./install.py                global (default)
   ./install.py --project      this project only
@@ -26,7 +27,7 @@ import urllib.request
 from pathlib import Path
 
 PLUGIN = "superpowers-plus"
-DEFAULT_ORIGIN = "https://spp.datalos.dk"
+DEFAULT_ORIGIN = "https://raw.githubusercontent.com/mikl0s/spp/main"
 # Features that are Python. Skills install without it.
 PYTHON_FEATURES = (
     ("statusline.py", "the bar (model, git, context meter)"),

@@ -5,8 +5,8 @@ user-invocable: true
 argument-hint: "[--project] [--dry-run]"
 ---
 
-Update this plugin to whatever spp.datalos.dk (or the checkout's origin) is
-serving, then re-link every runtime skill directory already installed.
+Update this plugin from GitHub `main` (or the checkout), then re-link every
+runtime skill directory already installed.
 
 ## Find the installer
 
@@ -15,7 +15,7 @@ Try, in order:
 1. `${CLAUDE_PLUGIN_ROOT}/install.py` if that env var is set
 2. Two directories above this file: `skills/spp-update/SKILL.md` → repo root
 3. `~/.local/share/superpowers-plus/install.py`
-4. Fall back: `curl -fsSL https://spp.datalos.dk/install.sh | sh`
+4. Fall back: `curl -fsSL https://raw.githubusercontent.com/mikl0s/spp/main/install.sh | sh`
 
 ## Run it
 
