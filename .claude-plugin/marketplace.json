@@ -1,0 +1,19 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "superpowers-plus",
+  "description": "Marketplace for superpowers-plus and its companion skills.",
+  "owner": {
+    "name": "Mikkel Georgsen"
+  },
+  "plugins": [
+    {
+      "name": "superpowers-plus",
+      "description": "Wave-based parallel scheduling, a progress meter, dispatch-prompt rules, plan pre-flight and a silent-wrongness review lens on top of the superpowers plan-execution flow. Ships decision-log and decision-review for autonomous runs, and repo-readme for repository front pages.",
+      "author": {
+        "name": "Mikkel Georgsen"
+      },
+      "category": "workflow",
+      "source": "./"
+    }
+  ]
+}

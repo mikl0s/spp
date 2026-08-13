@@ -1,0 +1,16 @@
+# Same as Dockerfile, but no python3 — skills-only path from a checkout.
+FROM debian:bookworm-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m -s /bin/bash tester
+COPY inside-nopython.sh /usr/local/bin/spp-e2e
+RUN chmod 755 /usr/local/bin/spp-e2e
+
+USER tester
+ENV HOME=/home/tester
+WORKDIR /home/tester
+ENTRYPOINT ["/usr/local/bin/spp-e2e"]

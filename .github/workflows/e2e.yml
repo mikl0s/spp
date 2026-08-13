@@ -1,0 +1,22 @@
+# Same command as a laptop: ./e2e/run.sh all
+name: e2e
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clean-machine install
+        run: ./e2e/run.sh all

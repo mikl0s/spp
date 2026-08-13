@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" width="900" height="300" role="img" aria-label="superpowers-plus — derived waves, reviewed for silence">
+  <defs>
+    <linearGradient id="tide" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#3E7059" stop-opacity="0"/>
+      <stop offset="20%"  stop-color="#3E7059" stop-opacity="0.55"/>
+      <stop offset="80%"  stop-color="#3E7059" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#3E7059" stop-opacity="0"/>
+    </linearGradient>
+
+    <g id="cell-done">
+      <circle r="13" fill="#3E7059"/>
+      <path d="M -5.5,0.5 L -1.5,4.5 L 6,-4" fill="none" stroke="#EDF0F2"
+            stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <g id="cell-review">
+      <circle r="13" fill="#B8792B"/>
+    </g>
+    <g id="cell-impl">
+      <circle r="13" fill="none" stroke="#B8792B" stroke-width="2.2"/>
+      <path d="M 0,-13 A 13,13 0 0 1 0,13 A 8,13 0 0 0 0,-13 Z" fill="#B8792B"/>
+    </g>
+    <g id="cell-todo">
+      <circle r="13" fill="none" stroke="#9AA7B1" stroke-width="2.2" stroke-dasharray="2.5 3.5"/>
+    </g>
+
+    <style>
+      .wordmark { font-family: "Georgia","Iowan Old Style",serif; font-weight: 700;
+                  font-size: 46px; letter-spacing: -0.5px; fill: #16202B; }
+      .tagline  { font-family: "SF Mono","JetBrains Mono",ui-monospace,monospace;
+                  font-size: 13px; letter-spacing: 3.4px; fill: #55636E; }
+      .gloss    { font-family: "SF Mono","JetBrains Mono",ui-monospace,monospace;
+                  font-size: 12px; letter-spacing: 0.2px; fill: #7C8894; }
+      .wave     { font-family: "SF Mono","JetBrains Mono",ui-monospace,monospace;
+                  font-size: 10px; letter-spacing: 2px; fill: #9AA7B1; }
+      .rule     { stroke: #C6CFD6; }
+      .edge     { stroke: #9AA7B1; stroke-opacity: 0.5; fill: none; }
+      .pulse    { transform-box: fill-box; transform-origin: center; }
+      @media (prefers-color-scheme: dark) {
+        .wordmark { fill: #EDF0F2; }
+        .tagline  { fill: #97A5B0; }
+        .gloss    { fill: #7C8894; }
+        .wave     { fill: #5C6975; }
+        .rule     { stroke: #2A3742; }
+        .edge     { stroke: #5C6975; }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .pulse { animation: glow 2.8s ease-in-out infinite; }
+        @keyframes glow {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.62; }
+        }
+      }
+    </style>
+  </defs>
+
+  <g transform="translate(0,6)">
+    <rect x="46" y="88"  width="270" height="1.5" fill="url(#tide)"/>
+    <rect x="46" y="152" width="270" height="1.5" fill="url(#tide)"/>
+    <rect x="46" y="216" width="270" height="1.5" fill="url(#tide)"/>
+
+    <text class="wave" x="46" y="76">WAVE A</text>
+    <text class="wave" x="46" y="140">WAVE B</text>
+    <text class="wave" x="46" y="204">WAVE C</text>
+
+    <g class="edge" stroke-width="1.4">
+      <path d="M 92,101 C 92,126 128,126 128,139"/>
+      <path d="M 148,101 C 148,126 128,126 128,139"/>
+      <path d="M 204,101 C 204,126 196,126 196,139"/>
+      <path d="M 260,101 C 260,126 264,126 264,139"/>
+      <path d="M 128,165 C 128,190 172,190 172,203"/>
+      <path d="M 196,165 C 196,190 172,190 172,203"/>
+      <path d="M 264,165 C 264,190 240,190 240,203"/>
+    </g>
+
+    <use href="#cell-done" x="92"  y="88"/>
+    <use href="#cell-done" x="148" y="88"/>
+    <use href="#cell-done" x="204" y="88"/>
+    <use href="#cell-done" x="260" y="88"/>
+
+    <g class="pulse">
+      <use href="#cell-review" x="128" y="152"/>
+    </g>
+    <use href="#cell-impl"   x="196" y="152"/>
+    <use href="#cell-done"   x="264" y="152"/>
+
+    <use href="#cell-todo" x="172" y="216"/>
+    <use href="#cell-todo" x="240" y="216"/>
+  </g>
+
+  <g transform="translate(382,0)">
+    <text class="wordmark" x="0" y="130">superpowers-plus</text>
+    <line class="rule" x1="2" y1="152" x2="452" y2="152" stroke-width="1.2"/>
+    <text class="tagline" x="2" y="180">DERIVED WAVES · REVIEWED FOR SILENCE</text>
+    <text class="gloss" x="2" y="216">a plan runs in parallel because the graph says it can,</text>
+    <text class="gloss" x="2" y="234">never because the loop read as sequential</text>
+  </g>
+</svg>
