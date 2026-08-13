@@ -93,13 +93,13 @@ NO_COLOR=1 python3 skills/superpowers-plus/wavemap.py # no colour
 
 ```mermaid
 flowchart LR
-    PLAN["PLAN<br>pre-flight against<br>self-contradiction"]
-    G["dependency graph<br>Creates · Modifies · Consumes"]
-    W["waves<br>derived, never declared"]
-    A["agents<br>one per task, disjoint files"]
-    R{"plausible<br>wrong answer?"}
-    D["decision log<br>controller writes<br>between waves"]
-    OP["operator<br>rules in batch, later"]
+    PLAN["PLAN — pre-flight against self-contradiction"]
+    G["dependency graph — Creates · Modifies · Consumes"]
+    W["waves — derived, never declared"]
+    A["agents — one per task, disjoint files"]
+    R{"plausible wrong answer?"}
+    D["decision log — controller writes between waves"]
+    OP["operator — rules in batch, later"]
 
     PLAN --> G --> W --> A
     A -->|"result"| R
