@@ -1,0 +1,72 @@
+# Default README craft seeds for the repo-readme skill.
+# Each block is a public repo and what to steal from it — not a template
+# to clone. House style still wins unless the operator says otherwise.
+#
+# Override (first file that exists wins, and REPLACES this list):
+#   <repo>/.superpowers/readme-seeds.txt
+#   ~/.config/superpowers-plus/readme-seeds.txt
+# Put `include-defaults` on the first line of an override to keep these
+# and append your own. Delete entries you do not want. Three of your
+# own branded repos is a complete set.
+#
+# Format: url, then one "take:" line. Blank line between entries.
+
+url: https://github.com/starship/starship
+take: The screenshot of the prompt is the thesis. Words come after you have already seen the product.
+
+url: https://github.com/junegunn/fzf
+take: First screen is a GIF plus install one-liners. No architecture lecture before the reader can try it.
+
+url: https://github.com/BurntSushi/ripgrep
+take: Engineering README. Benchmarks and comparison tables, no hero image. Claims are measured, not marketed.
+
+url: https://github.com/charmbracelet/bubbletea
+take: The page looks like the TUI it ships — colour, mono, lipgloss taste. Brand and product are the same object.
+
+url: https://github.com/jlevy/the-art-of-command-line
+take: Information density without chrome. A README can be the artefact. No badges, no banner, still unmistakable.
+
+url: https://github.com/kamranahmedse/developer-roadmap
+take: The visual is the product. The README is a frame around a diagram, not a wall of setup steps.
+
+url: https://github.com/donnemartin/system-design-primer
+take: A huge body made scannable. The table of contents is a map, not a courtesy.
+
+url: https://github.com/mermaid-js/mermaid
+take: The page uses the tool it documents. A live diagram in the README is the demo.
+
+url: https://github.com/astral-sh/uv
+take: Modern CLI front page: one install line, then a speed claim you can check. Quiet type, no mascot.
+
+url: https://github.com/pocketbase/pocketbase
+take: One screenshot, one paragraph, one binary. A small product stays a small page.
+
+url: https://github.com/caddyserver/caddy
+take: "Why this, not that" as a structured comparison. Config snippets do the explaining.
+
+url: https://github.com/excalidraw/excalidraw
+take: Show the canvas first. The drawing is the identity; prose is a caption.
+
+url: https://github.com/jesseduffield/lazygit
+take: Keybindings and a demo GIF as first-class content. The UI is taught in the README.
+
+url: https://github.com/ajeetdsouza/zoxide
+take: Perfect small-tool page. Name, one sentence, install, examples. Nothing else earns a heading.
+
+url: https://github.com/sharkdp/bat
+take: Before/after of the actual output. The product is a visual difference; they print it.
+
+url: https://github.com/ollama/ollama
+take: The install one-liner is the brand. Everything else is secondary to "run this."
+
+url: https://github.com/romkatv/powerlevel10k
+take: One screenshot of a configured prompt sells the whole project. Configuration is the demo.
+
+url: https://github.com/jj-vcs/jj
+take: Teach the model before the commands. Concepts, then the cheat sheet.
+
+url: https://github.com/charmbracelet/vhs
+take: A tape file records the CLI to a GIF. Repeatable demo, not a one-off screen grab.
+
+url: https://github.com/asciinema/asciinema
+take: A `.cast` is the source; the player or an SVG is what the README embeds. Terminal as cinema.

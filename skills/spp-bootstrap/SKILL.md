@@ -1,6 +1,6 @@
 ---
 name: spp-bootstrap
-description: Short name for project-bootstrap. Use when the user types /spp-bootstrap, /spp:bootstrap, /superpowers-plus:bootstrap, or asks to bootstrap or initialize a project.
+description: Short name for project-bootstrap. Use when the user types /spp:bootstrap, /spp-bootstrap, /superpowers-plus:bootstrap, or asks to bootstrap or initialize a project.
 user-invocable: true
 ---
 

@@ -8,6 +8,7 @@ skills/project-bootstrap/SKILL.md
 skills/project-bootstrap/references/claude-md-template.md
 skills/repo-readme/SKILL.md
 skills/repo-readme/references/template.md
+skills/repo-readme/references/seeds.txt
 skills/superpowers-plus/SKILL.md
 skills/superpowers-plus/wavemap.py
 skills/spp/SKILL.md
@@ -16,6 +17,7 @@ skills/spp-bootstrap/SKILL.md
 commands/spp.md
 commands/update.md
 commands/spp-bootstrap.md
+commands/spp/bootstrap.md
 commands/bootstrap.md
 install.py
 install.sh
