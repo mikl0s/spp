@@ -2,7 +2,7 @@
 
 A Claude Code plugin. It layers wave-based parallel scheduling, progress
 reporting, and a data-integrity review lens on top of the `superpowers`
-plan-execution flow (`subagent-driven-development` / `executing-plans`).
+plan-execution flow (`subagent-driven-development`; in-session only if asked).
 
 ## What this repo is
 

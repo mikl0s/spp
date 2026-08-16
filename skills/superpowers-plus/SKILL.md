@@ -1,6 +1,6 @@
 ---
 name: superpowers-plus
-description: Use alongside superpowers subagent-driven-development or executing-plans whenever running a written plan with subagents. Adds wave-based parallel scheduling from a dependency graph, a progress meter, dispatch-prompt rules, plan pre-flight, and the silent-wrongness review lens. Invoke at the start of any plan execution, and whenever asking "can any of these tasks run in parallel?" Also /spp.
+description: Use alongside superpowers subagent-driven-development whenever running a written plan. Always dispatch subagents — wave mapping does not work in-session. Adds wave-based parallel scheduling from a dependency graph, a progress meter, dispatch-prompt rules, plan pre-flight, and the silent-wrongness review lens. Invoke at the start of any plan execution, and whenever asking "can any of these tasks run in parallel?" Also /spp.
 user-invocable: true
 ---
 
@@ -12,6 +12,12 @@ one governs **scheduling, reporting, and what reviewers are told to look for**.
 
 Follow the base skill for everything it covers. Where this file adds a rule,
 apply it too. Where they conflict, this file wins.
+
+**Never ask subagent vs in-session.** `writing-plans` offers that choice.
+Ignore it. Wave mapping only works with subagents. After a plan is saved,
+invoke `superpowers:subagent-driven-development` and start.
+`executing-plans` only if the operator already said "in session",
+"inline", or "executing-plans" in this turn. Do not ask.
 
 Announce at start: "Using superpowers-plus for wave scheduling and review lens."
 
@@ -288,3 +294,4 @@ wins — if you are unsure whether something is log-worthy, it is.
 | "It's a small thing, no need to log it" | If in doubt whether it is log-worthy: it is. |
 | "Pre-flight is a formality" | It is the only thing between a wrong plan and nine tasks inheriting it. |
 | "No need for the meter on a short update" | Every update. That is the point of it. |
+| "Which approach, subagent or inline?" | Never ask. Subagents. Inline only if they already said so. |
