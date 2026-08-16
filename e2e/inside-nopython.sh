@@ -3,7 +3,7 @@
 set -eu
 
 ORIGIN_DIR=/opt/origin
-SKILLS="decision-log decision-review project-bootstrap repo-readme spp spp-update superpowers-plus"
+SKILLS="decision-log decision-review project-bootstrap repo-readme spp spp-bootstrap spp-update superpowers-plus"
 n_ok=0
 n_fail=0
 

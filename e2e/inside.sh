@@ -5,7 +5,7 @@ set -eu
 ORIGIN_DIR=/opt/origin
 ORIGIN=http://127.0.0.1:8765
 DEST="${XDG_DATA_HOME:-$HOME/.local/share}/superpowers-plus"
-SKILLS="decision-log decision-review project-bootstrap repo-readme spp spp-update superpowers-plus"
+SKILLS="decision-log decision-review project-bootstrap repo-readme spp spp-bootstrap spp-update superpowers-plus"
 n_ok=0
 n_fail=0
 
@@ -109,9 +109,9 @@ if [ "$rc" -eq 0 ]; then
 else
   fail "install.py --check  exit $rc"
 fi
-echo "$out" | grep -q "claude.*/.claude/skills  (7/7 skills)" \
-  && pass "check reports 7/7 claude skills" \
-  || fail "check did not report 7/7 claude skills"
+echo "$out" | grep -q "claude.*/.claude/skills  (8/8 skills)" \
+  && pass "check reports 8/8 claude skills" \
+  || fail "check did not report 8/8 claude skills"
 
 echo
 echo "== python features"

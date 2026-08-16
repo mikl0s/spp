@@ -12,8 +12,11 @@ skills/superpowers-plus/SKILL.md
 skills/superpowers-plus/wavemap.py
 skills/spp/SKILL.md
 skills/spp-update/SKILL.md
+skills/spp-bootstrap/SKILL.md
 commands/spp.md
 commands/update.md
+commands/spp-bootstrap.md
+commands/bootstrap.md
 install.py
 install.sh
 statusline.py

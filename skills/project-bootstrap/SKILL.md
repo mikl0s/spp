@@ -1,6 +1,7 @@
 ---
 name: project-bootstrap
-description: Write a project's CLAUDE.md and seed its decision log, so an autonomous run starts with the standing directives, conventions and hard-won facts a fresh context needs. Use in a new or empty repository, when a project has no CLAUDE.md, when one exists but carries no standing directives, or when the user says bootstrap, set up this project, wire this repo, or asks why an agent keeps getting the same thing wrong. Runs before any plan is written.
+description: Write a project's CLAUDE.md and seed its decision log, so an autonomous run starts with the standing directives, conventions and hard-won facts a fresh context needs. Use in a new or empty repository, when a project has no CLAUDE.md, when one exists but carries no standing directives, or when the user says bootstrap, set up this project, wire this repo, /spp-bootstrap, /spp:bootstrap, /superpowers-plus:bootstrap, or asks why an agent keeps getting the same thing wrong. Runs before any plan is written.
+user-invocable: true
 ---
 
 # Project bootstrap
