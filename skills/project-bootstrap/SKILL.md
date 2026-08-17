@@ -31,23 +31,28 @@ Ask only what the repository cannot tell you.
 
 ## 2. Ask only what only the operator knows
 
-Four questions, in one batch, and no more unless an answer opens a real fork:
+Three questions, in one batch, and no more unless an answer opens a real fork:
 
 1. **What is this, in one sentence, and who is it for?** The one-line thesis.
 2. **What must never happen?** The constraint that outranks everything —
    data that must not leave, a system that must not be written to, a cost
    ceiling. There is usually exactly one, and it belongs near the top.
-3. **How autonomous?** Does an agent ask, or decide and log? If it decides,
-   the standing directives in §3 apply and the decision log is mandatory.
-4. **What does a session need to run?** Build, test, lint, start — the commands
+3. **What does a session need to run?** Build, test, lint, start — the commands
    an agent would otherwise guess wrong.
+
+**Do not ask how autonomous the project is.** SPP's default is decide-and-log:
+the agent takes the most defensible option, records it, and continues. The
+standing directives in §3 and the decision log are mandatory. Asking on
+every ordinary ambiguity is not SPP; it is opting out. To opt out, the
+operator removes or never installs those directives — do not offer that
+choice during bootstrap.
 
 If the operator does not know yet, write the section with what is true today
 and say so in the file. **An honest gap outlives a confident guess.**
 
 ## 3. The standing-directives block
 
-If the project is autonomous, the decision-logging directive goes in first,
+The decision-logging directive goes in first. SPP projects are autonomous.
 using the canonical block from the `decision-log` skill's
 `references/claude-md-block.md`. Do not paraphrase it — the review flow greps
 for its markers.

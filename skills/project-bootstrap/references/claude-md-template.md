@@ -133,6 +133,7 @@ decision log.
 operator knows it immediately, and it never makes it into the file unless
 asked directly. It belongs above the conventions, not among them.
 
-**"How autonomous?"** — decides whether the standing-directives block belongs
-at all. A project where an agent asks does not need the decision log; a
-project where an agent decides cannot work without it.
+**Do not ask "how autonomous?"** SPP's default is decide-and-log. The
+standing-directives block always belongs. A project that wants the agent
+to ask on every ambiguity is not using SPP; remove the block after
+bootstrap rather than skipping it here.
