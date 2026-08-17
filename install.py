@@ -412,6 +412,7 @@ COMPANIONS = (
     {
         "name": "superpowers",
         "why": "required — spp layers on it",
+        "required": True,
         "claude_id": "superpowers@claude-plugins-official",
         "marketplace": "anthropics/claude-plugins-official",
         "marketplace_name": "claude-plugins-official",
@@ -419,7 +420,8 @@ COMPANIONS = (
     },
     {
         "name": "ponytail",
-        "why": "integral — the lazy lens on every orchestrator decision",
+        "why": "required — the second viewpoint on orchestrator decisions",
+        "required": True,
         "claude_id": "ponytail@ponytail",
         "marketplace": "DietrichGebert/ponytail",
         "marketplace_name": "ponytail",
@@ -427,7 +429,8 @@ COMPANIONS = (
     },
     {
         "name": "frontend-design",
-        "why": "separate official plugin, not part of superpowers — distinctive UI",
+        "why": "optional — distinctive UI, not needed for SPP to run",
+        "required": False,
         "claude_id": "frontend-design@claude-plugins-official",
         "marketplace": "anthropics/claude-plugins-official",
         "marketplace_name": "claude-plugins-official",
@@ -456,19 +459,49 @@ def companion_present(name: str) -> bool:
     return False
 
 
-def missing_companions() -> list[dict]:
-    return [c for c in COMPANIONS if not companion_present(c["name"])]
+def missing_companions(*, required_only: bool = False) -> list[dict]:
+    out = []
+    for c in COMPANIONS:
+        if required_only and not c.get("required"):
+            continue
+        if not companion_present(c["name"]):
+            out.append(c)
+    return out
 
 
 def offer_companions() -> None:
-    missing = missing_companions()
     print("companions")
     for c in COMPANIONS:
         state = "installed" if companion_present(c["name"]) else "missing"
         print(f"  {c['name']:<18} {state}  — {c['why']}")
-    if missing:
-        print("  re-run with --with-deps to install the missing ones")
-        print("  (will not uninstall them if you later remove spp)")
+    need = missing_companions(required_only=True)
+    if need:
+        names = ", ".join(c["name"] for c in need)
+        print(f"  required missing: {names}")
+        print("  default install pulls those; --no-deps skips the pull")
+
+
+def refuse_missing_required(*, no_deps: bool) -> int:
+    missing = missing_companions(required_only=True)
+    if not missing:
+        return 0
+    for c in missing:
+        print(
+            f"SPP cannot complete installation because required dependency",
+            file=sys.stderr,
+        )
+        print(f"'{c['name']}' was not found.", file=sys.stderr)
+    if no_deps:
+        print(
+            "Install the required dependencies, or rerun without --no-deps.",
+            file=sys.stderr,
+        )
+    else:
+        print(
+            "Install the required dependencies and re-run.",
+            file=sys.stderr,
+        )
+    return 2
 
 
 def ensure_marketplace(source: str, name: str, dry: bool) -> bool:
@@ -486,9 +519,9 @@ def ensure_marketplace(source: str, name: str, dry: bool) -> bool:
 
 
 def install_companions(scope: str, dry: bool) -> int:
-    missing = missing_companions()
+    missing = missing_companions(required_only=True)
     if not missing:
-        print("  all companions already present")
+        print("  required companions already present")
         return 0
     n = 0
     yes = ["-y"] if (not sys.stdin.isatty() or not sys.stdout.isatty()) else []
@@ -672,9 +705,16 @@ def main() -> int:
                     help="do not touch Claude Code's statusLine setting")
     ap.add_argument("--install-python", action="store_true",
                     help="try to install python3 via the local package manager")
+    ap.add_argument("--no-deps", action="store_true",
+                    help="do not install required companions; fail if they are missing")
     ap.add_argument("--with-deps", action="store_true",
-                    help="install superpowers, ponytail, and frontend-design if missing")
+                    help=argparse.SUPPRESS)
     args = ap.parse_args()
+    if args.with_deps and args.no_deps:
+        print("cannot combine --with-deps and --no-deps", file=sys.stderr)
+        return 2
+    if args.with_deps:
+        print("note: required companions are installed by default; --with-deps is ignored")
     if args.uninstall:
         args.command = "uninstall"
     if args.update:
@@ -696,6 +736,10 @@ def main() -> int:
                 return code
 
     found = detect()
+    if args.no_deps and args.command != "uninstall":
+        code = refuse_missing_required(no_deps=True)
+        if code:
+            return code
     try:
         root, project = resolve_root(args.scope, args.origin, args.dest, args.dry_run)
     except SystemExit:
@@ -768,10 +812,12 @@ def main() -> int:
     print("Companions")
     if args.command == "uninstall":
         print("  leaving superpowers / ponytail / frontend-design in place")
-    elif args.with_deps:
-        n += install_companions(args.scope, args.dry_run)
+    elif args.no_deps:
+        print("  skipped    --no-deps (required companions already present)")
     else:
-        offer_companions()
+        n += install_companions(args.scope, args.dry_run)
+        if not args.dry_run and refuse_missing_required(no_deps=False):
+            return 2
 
     print()
     if args.dry_run:
@@ -784,7 +830,6 @@ def main() -> int:
     else:
         where = "this project" if args.scope == "project" else "this user"
         print(f"done. Restart a session, then invoke /spp or superpowers-plus ({where}).")
-        print("Needs the superpowers plugin as well — this one layers on it.")
         print("Tools we do not detect: symlink skills/ into that tool yourself.")
     return 0 if n or args.dry_run else 1
 

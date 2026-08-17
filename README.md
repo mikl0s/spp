@@ -36,17 +36,21 @@ python3 is optional. Skills and `/spp` install without it. The statusline,
 package-manager commands and will run the one it recognises if you pass
 `--install-python`. Anything else: install Python 3 yourself and re-run.
 
-It also offers three companions — it will not install them unless you ask:
+The default one-liner installs SPP and its required companions
+(`superpowers`, `ponytail`). Already managing those yourself?
 
 ```bash
-… | sh -s -- --with-deps
+… | sh -s -- --no-deps
 ```
+
+`--no-deps` does not make them optional: if either is missing, the
+installer stops before it writes anything.
 
 | Plugin | Why |
 |---|---|
 | `superpowers` | Required. spp layers on it. Official marketplace. |
-| `ponytail` | Integral. The lazy lens on orchestrator decisions. |
-| `frontend-design` | Separate official plugin, not part of superpowers. Distinctive UI. |
+| `ponytail` | Required. The second viewpoint on orchestrator decisions. |
+| `frontend-design` | Optional. Distinctive UI, not needed for SPP to run. |
 
 They stay installed if you later remove spp.
 
@@ -76,8 +80,9 @@ OpenCode, and Kilo. A runtime is seeded when its CLI is on PATH or its
 config directory already exists. Global links go in that runtime's skills
 dir; `--project` uses `.<name>/skills` under the repo root.
 
-The `superpowers` plugin is required — this one layers on it, it does not
-replace it. Then invoke `superpowers-plus` at the start of any plan execution.
+`superpowers` and `ponytail` are required — this one layers on them, it
+does not replace them. Then invoke `superpowers-plus` at the start of any
+plan execution.
 
 To see a plan collapse into waves without installing anything:
 

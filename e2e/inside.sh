@@ -42,6 +42,11 @@ fi
 # Tools have been used: config dirs exist, CLIs are not on PATH.
 # The installer still seeds ~/.claude/skills and any config it can see.
 mkdir -p "$HOME/.claude" "$HOME/.grok"
+# Required companions: this image has no marketplace. Skill dirs count.
+for dep in superpowers ponytail; do
+  mkdir -p "$HOME/.claude/skills/$dep"
+  printf '# e2e stub\n' > "$HOME/.claude/skills/$dep/SKILL.md"
+done
 
 echo "== origin"
 python3 -m http.server 8765 --bind 127.0.0.1 --directory "$ORIGIN_DIR" >/tmp/origin.log 2>&1 &

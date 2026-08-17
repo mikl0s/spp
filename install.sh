@@ -5,7 +5,7 @@
 #   fetch -o - https://spp.datalos.dk/install.sh | sh
 #   … | sh -s -- --project
 #   … | sh -s -- --install-python
-#   … | sh -s -- --with-deps
+#   … | sh -s -- --no-deps
 #
 # The one-liner may be served from the site. The payload is always GitHub
 # (override with SPP_ORIGIN).
@@ -184,10 +184,9 @@ link_dir "$HOME/.claude/skills"
 
 echo
 echo "done. Skills are in. Statusline, wavemap, and validate wait on python3."
-echo "Companions (superpowers, ponytail, frontend-design): install python3"
-echo "and re-run with --with-deps, or:"
+echo "Required companions (superpowers, ponytail): re-run with python3 so"
+echo "the installer can pull them, or install them yourself:"
 echo "  claude plugin install superpowers@claude-plugins-official"
 echo "  claude plugin marketplace add DietrichGebert/ponytail"
 echo "  claude plugin install ponytail@ponytail"
-echo "  claude plugin install frontend-design@claude-plugins-official"
 echo "Short names: /spp  ·  /spp-update"
