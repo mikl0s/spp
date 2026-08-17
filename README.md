@@ -12,6 +12,10 @@ lacks is **scheduling** — its loop reads as sequential even when tasks share
 nothing — **visibility**, and a review lens aimed at the way data code actually
 fails: not with an error, but with a confident wrong number.
 
+It also closes the unattended-work loop: ordinary judgement calls are recorded
+instead of stopping the run, context is handed off before it becomes a
+liability, and the operator reviews those decisions later.
+
 Every rule here traces to a run that went wrong. Nothing was added because it
 sounded like good practice. The site is [spp.datalos.dk](https://spp.datalos.dk).
 
@@ -80,9 +84,7 @@ OpenCode, and Kilo. A runtime is seeded when its CLI is on PATH or its
 config directory already exists. Global links go in that runtime's skills
 dir; `--project` uses `.<name>/skills` under the repo root.
 
-`superpowers` and `ponytail` are required — this one layers on them, it
-does not replace them. Then invoke `superpowers-plus` at the start of any
-plan execution.
+Once a written plan is ready, invoke `/spp` to execute it.
 
 To see a plan collapse into waves without installing anything:
 
@@ -91,6 +93,40 @@ python3 skills/superpowers-plus/wavemap.py            # Nerd Font + colour
 python3 skills/superpowers-plus/wavemap.py --plain    # ASCII
 NO_COLOR=1 python3 skills/superpowers-plus/wavemap.py # no colour
 ```
+
+---
+
+## Basic flow
+
+Bootstrap a project once:
+
+```text
+/spp:bootstrap
+```
+
+Then design the work and write the plan using the normal Superpowers workflow.
+
+```text
+superpowers:brainstorming
+        ↓
+superpowers:writing-plans
+        ↓
+/spp
+        ↓
+/decision-review
+        ↓
+continue · change direction · next plan
+        ↺
+```
+
+`/spp` is the execution step: pre-flight the plan, derive safe waves, dispatch
+agents, review results, and record judgement calls made without the operator.
+
+`/decision-review` is the catch-up step: see what the run decided while you were
+away, bulk-review routine decisions, and inspect disagreements individually.
+
+The point is simple: **let the run keep moving without making its reasoning
+disappear into the context window.**
 
 ---
 
@@ -207,14 +243,19 @@ the tooling written to catch exactly that. Full detail in
 
 ## The autonomy contract
 
-Two companion skills, for runs that proceed without the operator present.
+Two SPP skills complete the autonomy loop.
+
+The two lenses are two viewpoints applied by the same model, not two separate
+AIs. One asks what the plan, requirements and engineering constraints call
+for (`superpowers-plus`). The other asks what is the least complicated thing
+that actually works (`ponytail`).
 
 **`decision-log`** — an agent that hits an ambiguity does not stall. It takes the
 most defensible option, returns the decision with its result, and the controller
-records it between waves. Every orchestrator decision carries **two lenses**: one
-asking what the plan requires, one asking what the least that works is. Where
-they agree, the entry is safely bulk-approvable. Where they disagree, both
-positions are recorded at equal weight, and the tie breaks on blast radius.
+records it between waves. Every orchestrator decision carries **two lenses**.
+Where they agree, the entry can normally be reviewed in bulk. Where they
+disagree, both positions are recorded at equal weight, and the tie breaks on
+blast radius.
 
 **`decision-review`** — the operator's catch-up pass. Non-consensus entries are
 questioned individually and flagged loudly; everything else is offered as a
