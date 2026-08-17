@@ -124,3 +124,7 @@ Then say what you wrote and what you left empty, so the operator can fill the
 gaps you could not.
 
 `references/claude-md-template.md` is a fill-in skeleton.
+
+An idea that arrived from another model should come as
+`references/idea-handover.md` — a brief, not a plan. Treat that file as
+operator answers for §2. Do not ask questions it already answered.

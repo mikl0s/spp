@@ -6,6 +6,7 @@ skills/decision-log/references/claude-md-block.md
 skills/decision-review/SKILL.md
 skills/project-bootstrap/SKILL.md
 skills/project-bootstrap/references/claude-md-template.md
+skills/project-bootstrap/references/idea-handover.md
 skills/repo-readme/SKILL.md
 skills/repo-readme/references/template.md
 skills/repo-readme/references/seeds.txt
