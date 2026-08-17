@@ -11,3 +11,4 @@ for wave scheduling and review lens."
 Never offer subagent vs in-session. Always
 `superpowers:subagent-driven-development` unless the user already asked
 for inline / in session / executing-plans.
+TDD is the default. Do not ask whether to skip tests.

@@ -19,6 +19,12 @@ invoke `superpowers:subagent-driven-development` and start.
 `executing-plans` only if the operator already said "in session",
 "inline", or "executing-plans" in this turn. Do not ask.
 
+**TDD is the default.** Every implementer writes the failing test first,
+watches it fail, then writes the code. Do not ask whether to skip tests.
+Reviewers confirm each new test fails against the pre-fix code — a test
+that passes either way locks in nothing. Skip TDD only if the operator
+already said so in this turn.
+
 Announce at start: "Using superpowers-plus for wave scheduling and review lens."
 
 ## 1. Schedule waves from a dependency graph, never a queue
@@ -121,6 +127,8 @@ directives in force.
 The base skill says don't paste session history. Additionally, every dispatch
 should carry:
 
+- **TDD, in the brief:** write the failing test, run it and see it fail,
+  then implement. Skipping the red step is a defect, not a shortcut.
 - **One sentence on why this task exists** in the wider system. An implementer
   who knows what its output feeds makes better judgement calls than one told
   only to write a function.
@@ -295,3 +303,4 @@ wins — if you are unsure whether something is log-worthy, it is.
 | "Pre-flight is a formality" | It is the only thing between a wrong plan and nine tasks inheriting it. |
 | "No need for the meter on a short update" | Every update. That is the point of it. |
 | "Which approach, subagent or inline?" | Never ask. Subagents. Inline only if they already said so. |
+| "This is too small for TDD" | Still write the failing check. Skip only if they already said so. |

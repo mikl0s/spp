@@ -11,5 +11,6 @@ Read and follow the sibling skill `superpowers-plus` (same skills directory,
 "Using superpowers-plus for wave scheduling and review lens."
 Never offer subagent vs in-session. Always subagent-driven-development
 unless the user already asked for inline / in session / executing-plans.
+TDD is the default. Do not ask whether to skip tests.
 
 To update the plugin itself, that is `/spp-update`, not this skill.
