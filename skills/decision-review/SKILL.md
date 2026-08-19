@@ -14,7 +14,7 @@ Triage is what makes a 200-entry log reviewable in the context that remains.
 ## 1. Mode: triage (default) vs `--all`
 
 **Individually questioned — hard criteria. No judgement, no exceptions.** An
-entry matching either of these is questioned individually whatever else you
+entry matching any of these is questioned individually whatever else you
 think of it:
 
 1. Every entry whose Consensus is not `yes`. Never triaged away, never folded
@@ -26,6 +26,12 @@ think of it:
    you cannot read is treated as `project`. "It looks unremarkable" is not a
    reason to bulk one — the radius is the operator's own declared threshold,
    not your estimate of interest.
+3. Every entry whose parsed fields contain `Hold`. **Read this fail-closed:**
+   only an entry you have *observed* to lack a `Hold` field may enter the bulk
+   batch. If you did not parse the fields, you have not observed absence.
+   Blast radius never demotes a Hold. Type never exempts a present Hold — a
+   `directive` or `pause` that somehow carries one is still individual.
+   Absence of the field is not Hold: pre-coroner logs stay in the bulk batch.
 
 **Individually questioned — judgement.** On top of the hard criteria, include
 anything you judge attention-worthy: rulings made on the operator's behalf at
@@ -38,7 +44,7 @@ When unsure, include it. *Triage saves clicks, not accountability.*
 `ID (five-word gist)`, so a stray is still spottable. Options: `Accept all N` /
 `Review individually` / `Pick some to discuss`. `directive` and `pause` entries
 default to the bulk batch — but the hard criteria bind them too. Type never
-exempts an entry from either one: a `project`-radius `directive` is questioned
+exempts an entry from any of them: a `project`-radius `directive` is questioned
 individually, exactly as a non-consensus one is.
 
 `Pick some to discuss` splits the batch: the picked entries move to the
@@ -125,6 +131,11 @@ In ID order, batched up to 4 per `AskUserQuestion` call.
   summary of why it was right.
 - **Non-consensus entries are prefixed `⚠ NON-CONSENSUS —` and name the
   dissent in one clause.** They must never read like routine accepts.
+- **Hold entries are prefixed `⚠ HOLD —` and name the combo in one
+  clause** (no cheap falsification, early point of no return). They must
+  never read like routine accepts.
+- **If an entry is both non-consensus and Hold, the non-consensus prefix
+  wins** (dissent already did the work); still individual.
 - Where an entry carries two lens positions, present **both at equal weight**.
   The overruled lens is not a footnote; it is the reason the entry is here.
 - **A re-offered entry is presented with the ruling it already carries.** An
@@ -315,6 +326,7 @@ reached from the other side.
      final re-run in step 3 — the one that saw the committed log — and any
      pre-existing problems carried past;
    - **every non-consensus entry and how the operator ruled on it**;
+   - **every Hold entry and how the operator ruled on it**;
    - **if anything was reverted, every ruling that reverting destroyed**, named
      against its entry — a revert reported only as "reverted" is silent loss;
    - every follow-up recorded for the next session;
@@ -338,6 +350,8 @@ reached from the other side.
 |---|---|
 | "The validator errored, so there is nothing to report" | An error is a broken check, not a clean log. Stop. |
 | "One non-consensus entry, low blast radius, bulk it" | Blast radius never demotes a `Consensus: no`. It is always individual. |
+| "Task-scope Hold, bulk it" | Hold is a hard criterion. Radius never demotes it. |
+| "No Hold field, so I didn't look" | Observed absence only. Unparsed fields cannot enter the bulk batch. |
 | "I'll note the override and apply it later" | Later is after the context clear. Apply it or write the follow-up now. |
 | "A tick on the heading shows it was reviewed" | It also makes the entry unparseable and drops every field. Append a field line. |
 | "Three entries would not parse, but the other twelve were fine" | Then say so in the close-out, and do not move the cursor past them. |
