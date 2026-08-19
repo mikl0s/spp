@@ -46,23 +46,23 @@ decision you have become a third advisor and the process is broken.
 
 Return only:
 
-**Load-bearing assumptions** — what the consensus silently rests on.
+**Assumptions:** what the consensus silently rests on.
 State each as a falsifiable claim about the world, not a worry.
 Bad: "scaling might be an issue."
 Good: "assumes write volume stays under ~X for 12 months."
 
-**Cheapest falsification** — for each assumption, the smallest
-observation that would show it false. Prefer something checkable
-today over something learned in production. If checking is expensive,
-say so plainly rather than proposing a project.
+**Falsification:** for each assumption, the smallest observation
+that would show it false. Prefer something checkable today over
+something learned in production. If checking is expensive, say so
+plainly rather than proposing a project.
 
-**Point of no return** — the moment this stops being cheaply
+**Point of no return:** the moment this stops being cheaply
 reversible. A commit, a migration, a public interface, a dependency,
 a customer. Name the event, not a date.
 
-If an assumption has no cheap falsification and the point of no
-return is early, say that in one line. That combination is the
-finding.
+**Hold:** if an assumption has no cheap falsification and the point
+of no return is early, say that in one line. That combination is
+the finding.
 
 ## Tone
 
