@@ -123,7 +123,8 @@ continue · change direction · next plan
 agents, review results, and record judgement calls made without the operator.
 
 `/decision-review` is the catch-up step: see what the run decided while you were
-away, bulk-review routine decisions, and inspect disagreements individually.
+away, bulk-review the uncontested remainder, and inspect disagreements and
+Holds individually.
 
 The point is simple: **let the run keep moving without making its reasoning
 disappear into the context window.**
@@ -253,14 +254,14 @@ that actually works (`ponytail`).
 **`decision-log`** — an agent that hits an ambiguity does not stall. It takes the
 most defensible option, returns the decision with its result, and the controller
 records it between waves. Every orchestrator decision carries **two lenses**.
-Where they agree, the entry can normally be reviewed in bulk. Where they
-disagree, both positions are recorded at equal weight, and the tie breaks on
-blast radius.
+Where they agree, `Consensus: yes`. Agreement is necessary for bulk, not
+sufficient — a `Hold` field still leaves the batch. Where they disagree, both
+positions are recorded at equal weight, and the tie breaks on blast radius.
 
-**`decision-review`** — the operator's catch-up pass. Non-consensus entries are
-questioned individually and flagged loudly; everything else is offered as a
-single bulk accept. The log is append-only, and a cursor records how far review
-has reached.
+**`decision-review`** — the operator's catch-up pass. Non-consensus and `Hold`
+entries are questioned individually and flagged loudly; only the rest is
+offered as a single bulk accept. The log is append-only, and a cursor records
+how far review has reached.
 
 **`validate.py`** — 15 checks, 44 assertions, stdlib only. Its job is narrow and
 absolute: an entry it fails to notice is a decision the operator never sees. Its
