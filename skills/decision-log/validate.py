@@ -429,6 +429,29 @@ def self_test():
     # CRLF is a line ending, not a defect.
     assert problems(GOOD.replace("\n", "\r\n")) == [], "CRLF log reported invalid"
 
+    # Coroner annotations must remain valid optional fields. If a later
+    # change whitelists required names, a log carrying Assumptions,
+    # Falsification, Point of no return, or Hold would fail — and an old
+    # log without them must still exit 0, which GOOD already pins. The
+    # four together is a parser fixture, not a write-path autopsy: a real
+    # empty coroner omits Falsification and Point of no return when
+    # Assumptions is none.
+    CORONER = GOOD.replace(
+        "**Blast radius:** task\n",
+        "**Blast radius:** task\n"
+        "**Assumptions:** none — nothing load-bearing.\n"
+        "**Falsification:** grep the existing callers today.\n"
+        "**Point of no return:** first external consumer of the interface.\n"
+        "**Hold:** no cheap falsification, early public interface\n",
+    )
+    assert problems(CORONER) == [], (
+        "coroner fields must be valid optional annotations"
+    )
+    # Spaced name is what we write; a hyphenated lookalike is not a field
+    # and vanishes unreported — the skill's own warning for this name.
+    assert FIELD.match("**Point of no return:**").group(1) == "Point of no return"
+    assert FIELD.match("**Point-of-no-return:**") is None
+
     missing = GOOD.replace("**Why:** this was cheaper.\n", "")
     assert any("Why" in p for p in problems(missing)), "missing field undetected"
 

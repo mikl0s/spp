@@ -262,7 +262,7 @@ questioned individually and flagged loudly; everything else is offered as a
 single bulk accept. The log is append-only, and a cursor records how far review
 has reached.
 
-**`validate.py`** — 15 checks, 41 assertions, stdlib only. Its job is narrow and
+**`validate.py`** — 15 checks, 44 assertions, stdlib only. Its job is narrow and
 absolute: an entry it fails to notice is a decision the operator never sees. Its
 own self-test is mutation-tested, because a checker that reports success without
 having run is indistinguishable from one that ran and passed.
