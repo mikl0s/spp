@@ -145,9 +145,9 @@ record. Those entries carry two viewpoints, always:
 | `superpowers-plus` | what does the plan, the graph, and the review lens require? |
 | `ponytail` | what is the least that actually works here? |
 
-- **They agree** → one entry, the shared reasoning, `Consensus: yes`. These
-  are the entries the operator can bulk-accept with real confidence: two
-  opposed lenses already converged.
+- **They agree** → one entry, the shared reasoning, `Consensus: yes`.
+  Agreement is necessary for bulk, not sufficient — a later persona field
+  (`Hold`) still pulls the entry out of the batch.
 - **They disagree** → both positions logged, each with its own reasoning, plus
   what was chosen and why the loser lost. `Consensus: no`.
 - **Ties break on blast radius.** At `task` scope the tie goes to `ponytail`;
