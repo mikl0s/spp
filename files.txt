@@ -3,6 +3,7 @@
 skills/decision-log/SKILL.md
 skills/decision-log/validate.py
 skills/decision-log/references/claude-md-block.md
+skills/decision-log/references/coroner.md
 skills/decision-review/SKILL.md
 skills/project-bootstrap/SKILL.md
 skills/project-bootstrap/references/claude-md-template.md
