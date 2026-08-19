@@ -160,6 +160,39 @@ record. Those entries carry two viewpoints, always:
   staged debate for the file is not the goal; an honest record of disagreement
   is.
 
+### Personas
+
+After the two lenses have produced a Consensus line on a **new** entry, walk
+the table. Do not scan `references/`. A later persona is another `.md` in
+`references/` plus another row here.
+
+| Persona | Gate | File | Appends |
+|---|---|---|---|
+| coroner | type is `decision` AND Consensus starts with `yes` | `references/coroner.md` | see below |
+
+- Skip when Consensus is `no` — disagreement already did this work.
+- Skip `directive` and `pause` on the write path. Do not run the persona.
+- Input is the entry's `Decided`, `Why`, and Consensus clause. Never the
+  original question. Never edit `Decided` / `Options` / `Why` / `Consensus`.
+  Append field lines only.
+- Still act. Personas do not halt the run. `Hold` is a review doorbell, not a
+  stop.
+- Read `references/coroner.md` and apply it. Map the return onto these names,
+  character for character (§4 field-name rules bind them):
+
+  - `**Assumptions:**` always, on a gated yes. Falsifiable claims, or `none`
+    plus one sentence.
+  - `**Falsification:**` only when Assumptions is not `none`.
+  - `**Point of no return:**` only when Assumptions is not `none`. The event,
+    not a date. Spaces in the name — a hyphen vanishes unreported.
+  - `**Hold:**` only the combo: no cheap falsification AND an early point of
+    no return. Omit the field otherwise. Never write `Hold: no`.
+    Discriminating content on the first line of the value.
+
+- Personas have no vote. If the persona argues for a different decision,
+  discard that argument and keep only assumptions / falsification / point of
+  no return.
+
 ## 6. Blast radius
 
 An enum, never prose: `task` · `plan` · `project` · `cross-project`.
@@ -231,6 +264,24 @@ propagates into every downstream total.
 **Impact:** the downstream summary needs an unknown column; noted for T7.
 ```
 
+A later task decides something both lenses already agree on. Coroner runs
+because Consensus starts with `yes`. Nothing is load-bearing, so the field
+is still written — `none` plus one sentence — and `Hold` is omitted:
+
+```markdown
+## D-043 — keep the denominator table as-is (decision, 2026-08-05)
+
+**Decided:** the denominator table is left unchanged; no extra rollup
+column is added in this task.
+**Options:** (a) leave the table as-is, (b) add a rollup column now.
+**Why:** nothing in this task reads a rollup, and adding one would pull
+work that belongs in a later plan.
+**Consensus:** yes — uncontested.
+**Blast radius:** task
+**Assumptions:** none — no downstream total in this plan reads a rollup
+from this table.
+```
+
 ## Red flags
 
 | Thought | Reality |
@@ -240,3 +291,6 @@ propagates into every downstream total.
 | "Both lenses obviously agree" | Then say so in one line. Skipping Consensus is what breaks triage. |
 | "I'll write up the decisions at the end" | A dying context loses them. Log before acting, same turn. |
 | "I'll fix the wording of D-017 while I'm here" | Append-only. Supersede it or add an Outcome. |
+| "I'll put coroner in skills/ so it can be invoked" | A skill description is a trigger. It would fire on the original question and become a third advisor. Personas are controller-read files. |
+| "Hold means stop" | Still act. Hold only forces individual review. |
+| "Nothing load-bearing, skip the field" | Write `Assumptions: none` plus one sentence. Review fail-closed needs observed absence of Hold, not absence of the whole block. |
