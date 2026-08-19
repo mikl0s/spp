@@ -190,8 +190,8 @@ the table. Do not scan `references/`. A later persona is another `.md` in
     Discriminating content on the first line of the value.
 
 - Personas have no vote. If the persona argues for a different decision,
-  discard that argument and keep only assumptions / falsification / point of
-  no return.
+  discard that argument and keep assumptions / falsification / point of
+  no return, and `Hold` as an annotation, not a vote.
 
 ## 6. Blast radius
 
