@@ -255,7 +255,8 @@ that actually works (`ponytail`).
 most defensible option, returns the decision with its result, and the controller
 records it between waves. Every orchestrator decision carries **two lenses**.
 Where they agree, `Consensus: yes`. Agreement is necessary for bulk, not
-sufficient — a `Hold` field still leaves the batch. Where they disagree, both
+sufficient — a `Hold` field still leaves the batch. Persona output is
+attributed; the byline is `**Persona:**`. Where they disagree, both
 positions are recorded at equal weight, and the tie breaks on blast radius.
 
 **`decision-review`** — the operator's catch-up pass. Non-consensus and `Hold`
@@ -263,7 +264,7 @@ entries are questioned individually and flagged loudly; only the rest is
 offered as a single bulk accept. The log is append-only, and a cursor records
 how far review has reached.
 
-**`validate.py`** — 15 checks, 44 assertions, stdlib only. Its job is narrow and
+**`validate.py`** — 15 checks, 45 assertions, stdlib only. Its job is narrow and
 absolute: an entry it fails to notice is a decision the operator never sees. Its
 own self-test is mutation-tested, because a checker that reports success without
 having run is indistinguishable from one that ran and passed.

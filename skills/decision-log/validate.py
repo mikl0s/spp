@@ -431,14 +431,15 @@ def self_test():
 
     # Coroner annotations must remain valid optional fields. If a later
     # change whitelists required names, a log carrying Assumptions,
-    # Falsification, Point of no return, or Hold would fail — and an old
-    # log without them must still exit 0, which GOOD already pins. The
-    # four together is a parser fixture, not a write-path autopsy: a real
-    # empty coroner omits Falsification and Point of no return when
-    # Assumptions is none.
+    # Falsification, Point of no return, Hold, or a Persona byline would
+    # fail — and an old log without them must still exit 0, which GOOD
+    # already pins. The five together is a parser fixture, not a
+    # write-path autopsy: a real empty coroner omits Falsification and
+    # Point of no return when Assumptions is none.
     CORONER = GOOD.replace(
         "**Blast radius:** task\n",
         "**Blast radius:** task\n"
+        "**Persona:** coroner\n"
         "**Assumptions:** none — nothing load-bearing.\n"
         "**Falsification:** grep the existing callers today.\n"
         "**Point of no return:** first external consumer of the interface.\n"
@@ -451,6 +452,7 @@ def self_test():
     # and vanishes unreported — the skill's own warning for this name.
     assert FIELD.match("**Point of no return:**").group(1) == "Point of no return"
     assert FIELD.match("**Point-of-no-return:**") is None
+    assert FIELD.match("**Persona:**").group(1) == "Persona"
 
     missing = GOOD.replace("**Why:** this was cheaper.\n", "")
     assert any("Why" in p for p in problems(missing)), "missing field undetected"
