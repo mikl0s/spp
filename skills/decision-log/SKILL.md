@@ -189,6 +189,31 @@ the table. Do not scan `references/`. A later persona is another `.md` in
     no return. Omit the field otherwise. Never write `Hold: no`.
     Discriminating content on the first line of the value.
 
+- After the table walk the controller writes one field, once, listing every
+  persona that ran this entry:
+
+  `**Persona:** coroner`
+
+  If two personas ran: `**Persona:** coroner, <name>` — comma-separated,
+  one field, never a second `**Persona:**` (a repeated field is invalid).
+
+  - Write it when at least one persona actually ran (a gated yes on which
+    coroner fired, including `Assumptions: none`).
+  - Do not write it on Consensus: no, directive, or pause (nobody ran).
+  - Coroner does not write this field. The controller does, after the table
+    walk. A persona that writes `**Persona:**` itself will collide with the
+    next one.
+
+  Discriminating content on the first line: the name(s).
+
+- When the controller writes those fields, it also says one line in the
+  reply to the operator, before moving on:
+
+  `coroner: <one-line gist of Assumptions, or none>`
+
+  If Hold was written, that line starts with `coroner HOLD:`. This is
+  session chatter, not a log field.
+
 - Personas have no vote. If the persona argues for a different decision,
   discard that argument and keep assumptions / falsification / point of
   no return, and `Hold` as an annotation, not a vote.
@@ -278,6 +303,7 @@ column is added in this task.
 work that belongs in a later plan.
 **Consensus:** yes — uncontested.
 **Blast radius:** task
+**Persona:** coroner
 **Assumptions:** none — no downstream total in this plan reads a rollup
 from this table.
 ```
@@ -294,3 +320,4 @@ from this table.
 | "I'll put coroner in skills/ so it can be invoked" | A skill description is a trigger. It would fire on the original question and become a third advisor. Personas are controller-read files. |
 | "Hold means stop" | Still act. Hold only forces individual review. |
 | "Nothing load-bearing, skip the field" | Write `Assumptions: none` plus one sentence. Review fail-closed needs observed absence of Hold, not absence of the whole block. |
+| "Assumptions appeared, no byline" | Write `**Persona:**` listing who ran. Unattributed persona fields are the defect. |
