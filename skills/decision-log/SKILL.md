@@ -168,7 +168,7 @@ the table. Do not scan `references/`. A later persona is another `.md` in
 
 | Persona | Gate | File | Appends |
 |---|---|---|---|
-| coroner | type is `decision` AND Consensus starts with `yes` | `references/coroner.md` | see below |
+| pre-post-mortem | type is `decision` AND Consensus starts with `yes` | `references/coroner.md` | see below |
 
 - Skip when Consensus is `no` — disagreement already did this work.
 - Skip `directive` and `pause` on the write path. Do not run the persona.
@@ -192,10 +192,11 @@ the table. Do not scan `references/`. A later persona is another `.md` in
 - After the table walk the controller writes one field, once, listing every
   persona that ran this entry:
 
-  `**Persona:** coroner`
+  `**Persona:** pre-post-mortem`
 
-  If two personas ran: `**Persona:** coroner, <name>` — comma-separated,
-  one field, never a second `**Persona:**` (a repeated field is invalid).
+  If two personas ran: `**Persona:** pre-post-mortem, <name>` —
+  comma-separated, one field, never a second `**Persona:**` (a
+  repeated field is invalid).
 
   - Write it when at least one persona actually ran (a gated yes on which
     coroner fired, including `Assumptions: none`).
@@ -209,9 +210,9 @@ the table. Do not scan `references/`. A later persona is another `.md` in
 - When the controller writes those fields, it also says one line in the
   reply to the operator, before moving on:
 
-  `coroner: <one-line gist of Assumptions, or none>`
+  `pre-post-mortem: <one-line gist of Assumptions, or none>`
 
-  If Hold was written, that line starts with `coroner HOLD:`. This is
+  If Hold was written, that line starts with `pre-post-mortem HOLD:`. This is
   session chatter, not a log field.
 
 - Personas have no vote. If the persona argues for a different decision,
@@ -303,7 +304,7 @@ column is added in this task.
 work that belongs in a later plan.
 **Consensus:** yes — uncontested.
 **Blast radius:** task
-**Persona:** coroner
+**Persona:** pre-post-mortem
 **Assumptions:** none — no downstream total in this plan reads a rollup
 from this table.
 ```
@@ -317,7 +318,7 @@ from this table.
 | "Both lenses obviously agree" | Then say so in one line. Skipping Consensus is what breaks triage. |
 | "I'll write up the decisions at the end" | A dying context loses them. Log before acting, same turn. |
 | "I'll fix the wording of D-017 while I'm here" | Append-only. Supersede it or add an Outcome. |
-| "I'll put coroner in skills/ so it can be invoked" | A skill description is a trigger. It would fire on the original question and become a third advisor. Personas are controller-read files. |
+| "I'll give pre-post-mortem a broad skill description" | A **broad** skill description that fires on ordinary decisions is a third advisor. The user-ask skill is `pre-post-mortem` / `coroner` with a tight trigger. The auto path is still this table reading `references/coroner.md`, not that skill. |
 | "Hold means stop" | Still act. Hold only forces individual review. |
 | "Nothing load-bearing, skip the field" | Write `Assumptions: none` plus one sentence. Review fail-closed needs observed absence of Hold, not absence of the whole block. |
 | "Assumptions appeared, no byline" | Write `**Persona:**` listing who ran. Unattributed persona fields are the defect. |
