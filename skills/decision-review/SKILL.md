@@ -131,9 +131,15 @@ In ID order, batched up to 4 per `AskUserQuestion` call.
   summary of why it was right.
 - **Non-consensus entries are prefixed `⚠ NON-CONSENSUS —` and name the
   dissent in one clause.** They must never read like routine accepts.
-- **Hold entries are prefixed `⚠ HOLD —` and name the combo in one
-  clause** (no cheap falsification, early point of no return). They must
-  never read like routine accepts.
+- **Hold entries are prefixed `⚠ HOLD —` and name who wrote it, from
+  the parsed `Persona` field, then the combo in one clause** (no cheap
+  falsification, early point of no return). Shape:
+  `⚠ HOLD — coroner — <combo in one clause>`. If `Persona` lists
+  several names, use that value (`coroner, <name>`). If Hold is
+  present and `Persona` is missing (pre-byline entries), keep
+  `⚠ HOLD —` with no name rather than inventing one. They must never
+  read like routine accepts. `Persona` is a byline, not a hard criterion.
+  Hold remains row 3.
 - **If an entry is both non-consensus and Hold, the non-consensus prefix
   wins** (dissent already did the work); still individual.
 - Where an entry carries two lens positions, present **both at equal weight**.
@@ -326,7 +332,8 @@ reached from the other side.
      final re-run in step 3 — the one that saw the committed log — and any
      pre-existing problems carried past;
    - **every non-consensus entry and how the operator ruled on it**;
-   - **every Hold entry and how the operator ruled on it**;
+   - **every Hold entry and how the operator ruled on it** — name the
+     persona when the field is present;
    - **if anything was reverted, every ruling that reverting destroyed**, named
      against its entry — a revert reported only as "reverted" is silent loss;
    - every follow-up recorded for the next session;
@@ -352,6 +359,7 @@ reached from the other side.
 | "One non-consensus entry, low blast radius, bulk it" | Blast radius never demotes a `Consensus: no`. It is always individual. |
 | "Task-scope Hold, bulk it" | Hold is a hard criterion. Radius never demotes it. |
 | "No Hold field, so I didn't look" | Observed absence only. Unparsed fields cannot enter the bulk batch. |
+| "Hold, but don't say who" | The prefix names `Persona`. Anonymous HOLD is the same defect as unattributed Assumptions. |
 | "I'll note the override and apply it later" | Later is after the context clear. Apply it or write the follow-up now. |
 | "A tick on the heading shows it was reviewed" | It also makes the entry unparseable and drops every field. Append a field line. |
 | "Three entries would not parse, but the other twelve were fine" | Then say so in the close-out, and do not move the cursor past them. |
