@@ -81,3 +81,5 @@ The controller writes these names, character for character.
 **Point of no return:** <the event, not a date; omit if Assumptions is none>
 **Hold:** <only if no cheap falsification AND an early point of no
 return; omit otherwise. Never write Hold: no.>
+Do not write `Persona`. The controller writes `**Persona:** coroner`
+once after the walk.
