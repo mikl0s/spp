@@ -255,9 +255,10 @@ that actually works (`ponytail`).
 most defensible option, returns the decision with its result, and the controller
 records it between waves. Every orchestrator decision carries **two lenses**.
 Where they agree, `Consensus: yes`. Agreement is necessary for bulk, not
-sufficient — a `Hold` field still leaves the batch. Persona output is
-attributed; the byline is `**Persona:**`. Where they disagree, both
-positions are recorded at equal weight, and the tie breaks on blast radius.
+sufficient — a `Hold` field still leaves the batch. A coroner is a
+**pre-post-mortem**; the byline is `**Persona:** pre-post-mortem`. Where they
+disagree, both positions are recorded at equal weight, and the tie breaks on
+blast radius.
 
 **`decision-review`** — the operator's catch-up pass. Non-consensus and `Hold`
 entries are questioned individually and flagged loudly; only the rest is

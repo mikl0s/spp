@@ -439,7 +439,7 @@ def self_test():
     CORONER = GOOD.replace(
         "**Blast radius:** task\n",
         "**Blast radius:** task\n"
-        "**Persona:** coroner\n"
+        "**Persona:** pre-post-mortem\n"
         "**Assumptions:** none — nothing load-bearing.\n"
         "**Falsification:** grep the existing callers today.\n"
         "**Point of no return:** first external consumer of the interface.\n"
