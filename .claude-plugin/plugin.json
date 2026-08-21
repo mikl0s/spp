@@ -1,6 +1,6 @@
 {
   "name": "superpowers-plus",
-  "version": "0.2.9",
+  "version": "0.2.11",
   "description": "Wave-based parallel scheduling, progress reporting, and a data-integrity review lens layered on top of the superpowers plan-execution flow.",
   "author": { "name": "Mikkel Georgsen" }
 }
