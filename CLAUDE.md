@@ -59,6 +59,9 @@ well but never fires during a real run, it is decoration.
 ## Conventions
 
 - Markdown, wrapped at 80 columns.
+- Bump `.claude-plugin/plugin.json` `version` on every push to `main`
+  that ships files `/spp-update` fetches. That field is what the
+  updater prints. Not a git tag.
 - `wavemap.py` is stdlib-only Python 3.12. It must stay dependency-free — it
   gets copied into scratch directories and run ad hoc.
 - Terminal output uses the 16 standard ANSI colour slots, never 24-bit
