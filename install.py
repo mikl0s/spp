@@ -380,16 +380,22 @@ def install_claude(root: Path, scope: str, project: Path, dry: bool, undo: bool)
     return 1 if code == 0 else 0
 
 
+def grok_already_installed(out: str) -> bool:
+    return "already installed" in (out or "").lower()
+
+
 def grok_plugin_is_ours(root: Path) -> bool:
     proc = subprocess.run(
         ["grok", "plugin", "list"],
         check=False, text=True, capture_output=True,
     )
     blob = (proc.stdout or "") + (proc.stderr or "")
-    return PLUGIN in blob and str(root) in blob
+    return PLUGIN in blob and str(root.resolve()) in blob
 
 
-def install_grok(root: Path, scope: str, dry: bool, undo: bool) -> int:
+def install_grok(
+    root: Path, scope: str, dry: bool, undo: bool, refresh: bool = False,
+) -> int:
     if not which("grok"):
         print("  Grok not on PATH — skip")
         return 0
@@ -402,7 +408,17 @@ def install_grok(root: Path, scope: str, dry: bool, undo: bool) -> int:
             return 1
         print("  nothing of ours to uninstall")
         return 0
-    code, _ = run(["grok", "plugin", "install", str(root), "--trust"], dry)
+    if grok_plugin_is_ours(root):
+        print("  already ours")
+        if refresh:
+            run(["grok", "plugin", "update", PLUGIN], dry)
+        return 0
+    code, out = run(["grok", "plugin", "install", str(root), "--trust"], dry)
+    if code != 0 and grok_already_installed(out):
+        print("  already installed — leaving it")
+        if refresh:
+            run(["grok", "plugin", "update", PLUGIN], dry)
+        return 0
     return 1 if code == 0 else 0
 
 
@@ -804,7 +820,10 @@ def main() -> int:
     n += install_claude(root, args.scope, project, args.dry_run, undo)
     print()
     print("Grok")
-    n += install_grok(root, args.scope, args.dry_run, undo)
+    n += install_grok(
+        root, args.scope, args.dry_run, undo,
+        refresh=args.command == "update",
+    )
     print()
     print("Skill directories")
     n += install_skill_homes(found, homes, skills, args.dry_run, undo)
