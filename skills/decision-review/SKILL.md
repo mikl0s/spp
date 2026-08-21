@@ -10,8 +10,35 @@ asking; this replays them as questions the operator can accept, change, or
 discuss. Run it before a context clear or an autonomous resume.
 
 Triage is what makes a 200-entry log reviewable in the context that remains.
+The failure it exists to catch is a **prefix treated as the set**: as the
+window fills, the unread tail vanishes, so supersession, chain-approval, and
+the second lens never make it into a question. The log file is the corpus.
+The conversation is not.
 
 ## 1. Mode: triage (default) vs `--all`
+
+**Read every unreviewed entry from the log file before the first
+question.** Cursor to end, one pass. Do not walk the first four and
+discover the rest as you go. The tail is where `Superseded by` and
+chain-approval live. Entries you have not read are not eligible for
+bulk, auto-accept, skip, or a close-out count.
+
+**Auto-accept — do not ask.** Append `**Reviewed:** ✅ operator-reviewed
+<date> — auto: <reason>` and drop from the question list. These are
+settled, not skipped:
+
+1. Type `directive`. A decision the operator made, then logged, is
+   already approved. Do not re-ask it.
+2. Already carries `Reviewed`, `Reconfirmed`, `Operator override`, or
+   `Discussed`.
+3. Carries `Superseded by`, or a later unreviewed entry settles the
+   same question (the same choice, or a directive covering it). Keep
+   the latest; auto-accept the earlier as chain.
+4. No choice. Options is `none`, missing, or a single option. A
+   review with one option is not a review.
+
+Deduplicate on the question asked, not the title. Two entries that
+decide the same thing are one review.
 
 **Individually questioned — hard criteria. No judgement, no exceptions.** An
 entry matching any of these is questioned individually whatever else you
@@ -29,9 +56,11 @@ think of it:
 3. Every entry whose parsed fields contain `Hold`. **Read this fail-closed:**
    only an entry you have *observed* to lack a `Hold` field may enter the bulk
    batch. If you did not parse the fields, you have not observed absence.
-   Blast radius never demotes a Hold. Type never exempts a present Hold — a
-   `directive` or `pause` that somehow carries one is still individual.
-   Absence of the field is not Hold: pre-coroner logs stay in the bulk batch.
+   Blast radius never demotes a Hold. Type never exempts a present Hold on
+   a remaining entry — a `pause` that somehow carries one is still
+   individual. A `directive` was auto-accepted above: the operator already
+   decided. Absence of the field is not Hold: pre-coroner logs stay in
+   the bulk batch.
 
 **Individually questioned — judgement.** On top of the hard criteria, include
 anything you judge attention-worthy: rulings made on the operator's behalf at
@@ -40,19 +69,21 @@ security checks.
 
 When unsure, include it. *Triage saves clicks, not accountability.*
 
-**Everything else** becomes one bulk-accept question listing each entry as
-`ID (five-word gist)`, so a stray is still spottable. Options: `Accept all N` /
-`Review individually` / `Pick some to discuss`. `directive` and `pause` entries
-default to the bulk batch — but the hard criteria bind them too. Type never
-exempts an entry from any of them: a `project`-radius `directive` is questioned
-individually, exactly as a non-consensus one is.
+**Everything else** becomes one bulk-accept question. Each line is
+`ID — chose X over Y — <consensus clause or ⚠ dissent>`, so a stray is
+still spottable and a choice is visible. Options: `Accept all N` /
+`Review individually` / `Pick some to discuss`. `pause` entries default
+to the bulk batch after the auto-accept filter — but the hard criteria
+bind them too. Type never exempts a remaining entry from any of them.
 
 `Pick some to discuss` splits the batch: the picked entries move to the
 individual walk of §6, and **the unpicked remainder is not accepted by
 default** — it is re-offered as a fresh bulk-accept question once the picks are
 resolved. Nothing is accepted that the operator did not accept.
+Auto-accept in this section is that prior acceptance, already on the log.
 
-`--all` disables triage: every unreviewed entry is questioned individually.
+`--all` disables bulk of what remains after auto-accept. It does not
+put settled entries back on the question list.
 
 ## 2. Locate the log
 
@@ -123,12 +154,30 @@ The cursor is a single line: `<!-- reviewed-through: D-NNN YYYY-MM-DD -->`.
 
 ## 6. Walk the decisions
 
-In ID order, batched up to 4 per `AskUserQuestion` call.
+The filter in §1 has already run. Walk only what remains, in ID order,
+batched up to 4 per `AskUserQuestion` call.
+
+**Question body, in this order — a recipe, not a compression:**
+
+1. **ELI5.** One sentence a colleague who was not in the run would
+   understand. No log jargon, no entry title recycled as the question.
+2. **The choices.** Each option on its own line: option — pro — con.
+   Pros and cons come from `Options`, `Why`, and the lens positions.
+   If a side was not argued, write `not argued`. Do not invent a con
+   to make a thin entry look like a debate, and do not drop a choice
+   that was on the table.
+3. **Viewpoints.** Both lenses at equal weight, or the Consensus
+   clause if they agreed. The overruled lens is not a footnote; it is
+   the reason the entry is here.
+
+An entry that cannot fill (2) had no choice and should have been
+auto-accepted in §1. Do not ask it.
+
+Do not re-argue. The operator is ruling on what was decided, not on
+your summary of why it was right. Surfacing the table they were not
+in the room for is not re-arguing.
 
 - **Header** is the ID.
-- **Question** is a faithful one-sentence compression of the entry. Compress,
-  never re-argue — the operator is ruling on what was decided, not on your
-  summary of why it was right.
 - **Non-consensus entries are prefixed `⚠ NON-CONSENSUS —` and name the
   dissent in one clause.** They must never read like routine accepts.
 - **Hold entries are prefixed `⚠ HOLD —` and name who wrote it, from
@@ -139,14 +188,13 @@ In ID order, batched up to 4 per `AskUserQuestion` call.
   present and `Persona` is missing (pre-byline entries), keep
   `⚠ HOLD —` with no name rather than inventing one. They must never
   read like routine accepts. `Persona` is a byline, not a hard criterion.
-  Hold remains row 3.
+  Hold remains row 3 of the hard criteria.
 - **If an entry is both non-consensus and Hold, the non-consensus prefix
   wins** (dissent already did the work); still individual.
-- Where an entry carries two lens positions, present **both at equal weight**.
-  The overruled lens is not a footnote; it is the reason the entry is here.
 - **A re-offered entry is presented with the ruling it already carries.** An
   entry can come round twice — the cursor parked behind a skip (§8 step 2)
-  re-offers everything after it. If the entry already has a `**Reviewed:**`,
+  re-offers everything after it. If §1 already auto-accepted it, it is not
+  in this walk. If it still is, and it already has a `**Reviewed:**`,
   `**Operator override:**` or `**Discussed:**` line, say so in the question:
   *"previously overruled: fail fast instead — re-confirm?"* Asking about a
   decision the operator already overruled, with no sign they ever ruled,
@@ -292,12 +340,14 @@ reached from the other side.
 
 2. **Only once step 1 has reached the proceed row** — a revert has already ended
    the review, so it never arrives here — write the cursor: advance it to the
-   highest ID actually presented to the operator, and **never past a skipped
-   entry**. If an entry was skipped — unparseable, or unread for any reason —
-   the cursor stops at the last ID before it, even when later entries were
-   reviewed. Those later rulings stand as their own field lines; they are
+   highest ID **resolved** (asked, or auto-accepted in §1), and **never past a
+   skipped entry**. If an entry was skipped — unparseable, or unread for any
+   reason — the cursor stops at the last ID before it, even when later entries
+   were resolved. Those later rulings stand as their own field lines; they are
    simply re-offered next time (§6). Advancing past a skip marks a decision
    reviewed that nobody ever saw, which is worse than reviewing one twice.
+   Auto-accepted entries are resolved: leaving the cursor behind them
+   re-offers a settled chain.
 
    **The cursor is written last for a reason.** It is the one annotation that
    causes entries to be *skipped* in future runs, so it must never survive a
@@ -326,6 +376,8 @@ reached from the other side.
    path — other agents may share the index.
 5. Summarise. These are mandatory line items, not discretionary:
    - counts of accepted / changed / discussed;
+   - **auto-accepted, by reason** (operator / superseded / chain /
+     no-choice) — say "0 auto-accepted" when none were;
    - **every entry skipped and why** — say "0 skipped" when none were, so the
      absence is stated rather than inferred;
    - **the validator exit status the walk ran under**, the exit status of the
@@ -340,7 +392,22 @@ reached from the other side.
    - the wiring flag from §4 if it fired.
 
    A close-out reporting "12 accepted" after seeing 12 of 15 is a false
-   report. The denominator is part of the result.
+   report. The denominator is part of the result. Auto-accepted entries
+   are in that denominator; they are not silent.
+
+6. **If context use is at or above 45%**, tell the operator to run these
+   in this order, and stop. Do not run them yourself.
+
+   ```
+   /spp pause
+   /clear
+   /spp resume
+   ```
+
+   45% is earlier than the skill's 50% pause threshold because this walk
+   already spent the room. If you cannot read a meter, treat a review of
+   more than a handful of entries as at the threshold. Below 45%, say
+   nothing about pause.
 
 ## Notes
 
@@ -372,3 +439,8 @@ reached from the other side.
 | "Then one check, after the cursor, is enough" | No — before it *and* after it. The first clears your annotations, the second clears the cursor; one check alone cannot say which of the two broke the log. Cursor still last: one that outlives a reverted review skips entries whose rulings were deleted. |
 | "The cursor is wrong, so revert the review" | Fix the cursor and re-validate first. Reverting deletes every ruling over a one-line fault; if you do revert, list what you destroyed. |
 | "There is no log, I'll create one" | An empty log claims nothing was decided. Say it is missing and stop. |
+| "I'll start asking; I can read the rest as we go" | The tail holds supersession and chain-approval. Read the set first. |
+| "Directive, but Hold, so ask" | The operator already decided. Auto-accept. |
+| "One option, still ask for completeness" | No choice, nothing to review. |
+| "One sentence is enough, they have the log" | The question is the review. ELI5, each choice with pro/con, both viewpoints. |
+| "Context is 47%, squeeze the next wave" | After review at ≥45%, the three-line pause sequence. Do not run it yourself. |

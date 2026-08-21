@@ -16,12 +16,16 @@ skills/superpowers-plus/wavemap.py
 skills/spp/SKILL.md
 skills/spp-update/SKILL.md
 skills/spp-bootstrap/SKILL.md
+skills/spp-resume/SKILL.md
 skills/pre-post-mortem/SKILL.md
 skills/coroner/SKILL.md
 commands/spp.md
 commands/update.md
 commands/spp-bootstrap.md
 commands/spp/bootstrap.md
+commands/spp/pause.md
+commands/spp/resume.md
+commands/spp-resume.md
 commands/bootstrap.md
 commands/pre-post-mortem.md
 commands/coroner.md

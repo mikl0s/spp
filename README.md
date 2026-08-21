@@ -260,10 +260,13 @@ sufficient — a `Hold` field still leaves the batch. A coroner is a
 disagree, both positions are recorded at equal weight, and the tie breaks on
 blast radius.
 
-**`decision-review`** — the operator's catch-up pass. Non-consensus and `Hold`
-entries are questioned individually and flagged loudly; only the rest is
-offered as a single bulk accept. The log is append-only, and a cursor records
-how far review has reached.
+**`decision-review`** — the operator's catch-up pass. It reads the whole
+unreviewed set first; auto-accepts operator directives, supersessions, and
+entries with no choice; and questions the rest in plain language with both
+viewpoints and the options' pros and cons. Non-consensus and `Hold` stay
+individual. The log is append-only, and a cursor records how far review has
+reached. After the walk, at 45% context or more, it tells the operator to
+`/spp pause`, `/clear`, then `/spp resume`.
 
 **`validate.py`** — 15 checks, 45 assertions, stdlib only. Its job is narrow and
 absolute: an entry it fails to notice is a decision the operator never sees. Its

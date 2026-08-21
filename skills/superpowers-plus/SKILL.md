@@ -242,9 +242,11 @@ In order:
    returned agent whose findings exist only in the conversation is unprocessed.
 2. **Write the decision log, including every decision still parked in the
    ledger (§8).** Nothing deferred to next time.
-3. **Write the handoff:** where things stand, what to run first on resume, what
-   a fresh context reliably gets wrong, findings that must not be re-derived,
-   and what is open and waiting on the operator.
+3. **Write the handoff:** where things stand, **the plan file** (path,
+   character for character), what to run first on resume, what a fresh
+   context reliably gets wrong, findings that must not be re-derived,
+   and what is open and waiting on the operator. `/spp resume` reads
+   this file and that plan; a missing plan path is a guess.
 4. **Commit**, working tree clean.
 5. **Tell the operator to clear and resume**, stating plainly what is
    unresolved.
