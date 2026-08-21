@@ -24,6 +24,8 @@ skills/pre-post-mortem/SKILL.md
 skills/coroner/SKILL.md
 commands/spp.md
 commands/update.md
+commands/spp-update.md
+commands/spp/update.md
 commands/spp-bootstrap.md
 commands/spp/bootstrap.md
 commands/spp/pause.md
@@ -37,4 +39,5 @@ commands/pre-post-mortem.md
 commands/coroner.md
 install.py
 install.sh
+update.sh
 statusline.py

@@ -91,6 +91,7 @@ fi
 
 need "$DEST/skills/superpowers-plus/SKILL.md" "fetched plugin root"
 need "$DEST/install.py" "fetched install.py"
+need "$DEST/update.sh" "fetched update.sh"
 need "$DEST/statusline.py" "fetched statusline.py"
 need "$DEST/.claude-plugin/plugin.json" "fetched plugin manifest"
 
