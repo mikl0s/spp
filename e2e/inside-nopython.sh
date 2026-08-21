@@ -3,7 +3,11 @@
 set -eu
 
 ORIGIN_DIR=/opt/origin
-SKILLS="decision-log decision-review project-bootstrap repo-readme spp spp-bootstrap spp-update superpowers-plus"
+SKILLS=""
+for _skill in "$ORIGIN_DIR"/skills/*/SKILL.md; do
+  SKILLS="$SKILLS $(basename "$(dirname "$_skill")")"
+done
+SKILLS=${SKILLS# }
 n_ok=0
 n_fail=0
 
