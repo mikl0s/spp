@@ -353,3 +353,33 @@ belongs inside what the actor receives, and that prose outside it is addressed
 to the coordinator. Once written down, the remaining violations become
 enumerable instead of a matter of taste — which is what turned an open-ended
 hunt into a finite checklist.
+
+---
+
+## 15. Pitching a ruling as engineering
+
+The operator holds the design and is not checking the code. A review
+question that opens on files, hashes, versions, or type names is not
+"more precise" — it is a question they cannot engage with. They stall,
+or they pick `Discuss` meaning "say it in plain words", and a pass that
+should take minutes takes half an hour.
+
+**Why it survives testing.** The agent is talking to another engineer in
+its head. The write-up is accurate. Accuracy is not the job. The job is
+a concept they can rule on.
+
+**Observed.** A real decision review dropped from about thirty minutes
+to about two when the same entries were pitched as what a thing *is*
+and what it *does*, with engineering hygiene as one-line ELI5 bullets
+instead of individual walks.
+
+**Ask:** could a colleague who never saw the repo rule on this sentence?
+If not, the concept has not been found yet. Hygiene that does not change
+what the product is or does for the user is a bullet of at most 100
+characters, not a question. A multiple-choice picker is the same
+failure in a different shape: the box is too narrow, so the concept
+gets cut to fit the widget instead of the widget fitting the concept.
+
+This failure is opt-in: it is the `high-level` skill, default off. It is
+not a silent-wrongness in data. It is listed here because every SPP
+rule has to name the run where its absence hurt.

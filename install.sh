@@ -55,7 +55,7 @@ python_recipe() {
 explain_python() {
   echo "python3 is not on PATH."
   echo "Without it these will not run:"
-  echo "  statusline     the bar (model, git, context meter)"
+  echo "  statusline     the bar (model, wave, meter, live chips)"
   echo "  wavemap.py     the wave map"
   echo "  validate.py    the decision-log checker"
   echo "Skills, /spp, and /spp-update still install."

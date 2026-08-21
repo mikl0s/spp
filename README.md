@@ -67,10 +67,11 @@ A clean-machine install, reproducible: `./e2e/run.sh` (docker or podman).
 Once installed, the short slash is `/spp` (same as `/superpowers-plus`). Update
 from inside a session with `/spp-update` or `/superpowers-plus:update`.
 
-A global install also wires Claude Code's status line (model, current todo,
-directory, context used). It turns amber at 50% — the pause threshold — and
-replaces a GSD statusline if that is what is there. Restore with
-`./install.sh uninstall` or skip with `--no-statusline`.
+A global install also wires Claude Code's status line (model, SPP wave,
+directory, context used, running subagents `[]` and shells `{}`). It turns
+amber at 50% — the pause threshold — and replaces a GSD statusline if that
+is what is there. Restore with `./install.sh uninstall` or skip with
+`--no-statusline`.
 
 The installer prefers each tool's own plugin command (`claude plugin …`,
 `grok plugin install`). If a marketplace of the same name already points at a
@@ -102,6 +103,7 @@ Bootstrap a project once:
 
 ```text
 /spp:bootstrap
+/spp:high-level    # optional — keep the conversation at concept altitude
 ```
 
 Then design the work and write the plan using the normal Superpowers workflow.
@@ -128,6 +130,27 @@ Holds individually.
 
 The point is simple: **let the run keep moving without making its reasoning
 disappear into the context window.**
+
+---
+
+## High-level mode
+
+**You stay in the idea. SPP holds everything under it.**
+
+Default off. `/spp:high-level` turns it on for this project;
+`/spp:high-level global` for every project this user. It is a briefing
+overlay, not a different scheduler: waves, agents, the log, and the
+review walk still run. What changes is the altitude of every sentence
+you are asked to rule on.
+
+The run abstracts the work before it reaches you. You see what a thing
+*is* and what it *does* — to the product, the user, the loop. You do
+not see how a function was written, how a table is laid out, or why a
+value sits where it does. Engineering hygiene still happens; it lands
+as a one-line ELI5, not as a question. You remain in control of the
+design without having to become the implementation.
+
+> Stay in the idea. Let the run hold the rest.
 
 ---
 
@@ -312,6 +335,7 @@ skills/
   decision-review/     operator triage walk
   repo-readme/         this README's house style, as a reusable skill
   project-bootstrap/   writes a new project's CLAUDE.md and seeds its log
+  high-level/          opt-in concept-level operator briefing
 docs/
   FAILURE-MODES.md     the catalogue behind the review lens
   assets/banner.svg    the banner above
@@ -329,7 +353,8 @@ LICENSE                MIT
 |---|---|
 | Scheduling · meter · review lens | ✅ in use |
 | `decision-log` · `decision-review` · `validate.py` | ✅ shipped |
-| Claude statusline — model, todo, dir, context meter | ✅ shipped (`statusline.py`) |
+| `/spp:high-level` — concept-level operator briefing | ✅ shipped |
+| Claude statusline — model, wave, dir, meter, live chips | ✅ shipped (`statusline.py`) |
 | Live run state — libSQL, hooks, live meter | 📐 specced, not built |
 | Operator web UI — Leptos, passkeys, LAN-only | 📐 not built |
 | Hindsight — across-run retrospective | 📐 not built |

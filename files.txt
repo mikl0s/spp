@@ -13,6 +13,9 @@ skills/repo-readme/references/template.md
 skills/repo-readme/references/seeds.txt
 skills/superpowers-plus/SKILL.md
 skills/superpowers-plus/wavemap.py
+skills/high-level/SKILL.md
+skills/high-level/references/claude-md-block.md
+skills/spp-high-level/SKILL.md
 skills/spp/SKILL.md
 skills/spp-update/SKILL.md
 skills/spp-bootstrap/SKILL.md
@@ -25,6 +28,9 @@ commands/spp-bootstrap.md
 commands/spp/bootstrap.md
 commands/spp/pause.md
 commands/spp/resume.md
+commands/spp/high-level.md
+commands/spp/stay-high-level.md
+commands/spp-high-level.md
 commands/spp-resume.md
 commands/bootstrap.md
 commands/pre-post-mortem.md

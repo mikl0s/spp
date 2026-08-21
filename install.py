@@ -30,7 +30,7 @@ PLUGIN = "superpowers-plus"
 DEFAULT_ORIGIN = "https://raw.githubusercontent.com/mikl0s/spp/main"
 # Features that are Python. Skills install without it.
 PYTHON_FEATURES = (
-    ("statusline.py", "the bar (model, git, context meter)"),
+    ("statusline.py", "the bar (model, wave, meter, live chips)"),
     ("wavemap.py", "the wave map"),
     ("validate.py", "the decision-log checker"),
 )
@@ -585,6 +585,14 @@ def statusline_command(root: Path) -> str:
     return f'"{py}" "{script}"'
 
 
+def statusline_spec(root: Path) -> dict:
+    return {
+        "type": "command",
+        "command": statusline_command(root),
+        "refreshInterval": 1,
+    }
+
+
 def is_our_statusline(cmd: str) -> bool:
     return "statusline.py" in cmd and ("superpowers" in cmd or "/spp" in cmd)
 
@@ -599,7 +607,7 @@ def install_statusline(root: Path, dry: bool, undo: bool, force: bool) -> int:
         print("  no ~/.claude — skip statusline")
         return 0
     prev_path = HOME / ".claude" / "spp-statusline.prev.json"
-    want = statusline_command(root)
+    want = statusline_spec(root)
     try:
         settings = json.loads(settings_path.read_text()) if settings_path.exists() else {}
     except (OSError, json.JSONDecodeError) as exc:
@@ -608,7 +616,10 @@ def install_statusline(root: Path, dry: bool, undo: bool, force: bool) -> int:
     if not isinstance(settings, dict):
         print("  skip       settings.json is not an object")
         return 0
-    current = ((settings.get("statusLine") or {}).get("command") or "")
+    current_obj = settings.get("statusLine")
+    if not isinstance(current_obj, dict):
+        current_obj = {}
+    current = current_obj.get("command") or ""
     if undo:
         if not is_our_statusline(current):
             print("  statusline is not ours — leave it")
@@ -639,7 +650,7 @@ def install_statusline(root: Path, dry: bool, undo: bool, force: bool) -> int:
     if current and not is_our_statusline(current) and not is_gsd_statusline(current) and not force:
         print("  statusline already custom — pass --statusline to replace it")
         return 0
-    if current == want:
+    if current_obj == want:
         print("  statusline already ours")
         return 0
     if dry:
@@ -648,7 +659,7 @@ def install_statusline(root: Path, dry: bool, undo: bool, force: bool) -> int:
     if current and not is_our_statusline(current):
         prev_path.write_text(json.dumps(settings.get("statusLine"), indent=2) + "\n")
         print(f"  backed up  {prev_path}")
-    settings["statusLine"] = {"type": "command", "command": want}
+    settings["statusLine"] = want
     settings_path.parent.mkdir(parents=True, exist_ok=True)
     settings_path.write_text(json.dumps(settings, indent=2) + "\n")
     who = "GSD" if is_gsd_statusline(current) else "previous"
