@@ -312,6 +312,8 @@ def running_chips(transcript_path: str, session_model: str,
         ts = _parse_ts(row.get("timestamp"))
         msg = row.get("message") or {}
         content = msg.get("content") if isinstance(msg, dict) else None
+        if isinstance(content, str):  # completion notices arrive as a plain-string user message
+            _apply_notification(content, status_of)
         if not isinstance(content, list):
             continue
         for part in content:
@@ -321,7 +323,10 @@ def running_chips(transcript_path: str, session_model: str,
             if ptype == "tool_use":
                 name = part.get("name")
                 oid = part.get("id")
-                if not oid or name not in AGENT_TOOLS | SHELL_TOOLS:
+                # str(oid) in items: Claude Code repeats each call in an untimestamped
+                # api-request-blob row; re-adding it showed a finished call as running.
+                if (not oid or name not in AGENT_TOOLS | SHELL_TOOLS
+                        or str(oid) in items):
                     continue
                 inp = part.get("input") or {}
                 kind = "agent" if name in AGENT_TOOLS else "shell"
@@ -351,11 +356,14 @@ def running_chips(transcript_path: str, session_model: str,
                     else:
                         item["async"] = False
                 else:
-                    match = BG_ID.search(text)
+                    # Only the result's first line: the background notice opens
+                    # it, and a command's own output may quote the same words.
+                    head = text.lstrip().split("\n", 1)[0]
+                    match = BG_ID.search(head)
                     if match:
                         item["task_id"] = match.group(1)
                         item["bg"] = True
-                    elif "running in background" in text.lower():
+                    elif "running in background" in head.lower():
                         item["bg"] = True
 
     chips = []
